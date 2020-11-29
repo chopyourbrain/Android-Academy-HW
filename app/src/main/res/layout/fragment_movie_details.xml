@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#191926">
+    android:background="@color/steel_gray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,7 +29,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:scaleType="centerCrop"
             android:src="@drawable/image_gradient"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,8 +39,9 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="60dp"
             android:drawablePadding="8dp"
+            android:fontFamily="sans-serif-light"
             android:text="@string/back"
-            android:textColor="#6D6D80"
+            android:textColor="@color/storm_gray"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_arrow"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -52,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="154dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/age"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -63,8 +64,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/avengers_title"
-            android:textColor="#ECECEC"
+            android:textColor="@color/gallery"
             android:textSize="40sp"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/age" />
@@ -74,8 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
             android:text="@string/avengers_genre"
-            android:textColor="#FF3466"
+            android:textColor="@color/radical_red"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/movie_title" />
@@ -134,9 +137,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/reviews"
                 android:textAllCaps="true"
-                android:textColor="#6D6D80" />
+                android:textColor="@color/storm_gray" />
 
         </LinearLayout>
 
@@ -145,8 +149,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/storyline"
-            android:textColor="#ECECEC"
+            android:textColor="@color/gallery"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/reviews" />
@@ -156,6 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/storyline_avengers"
@@ -168,6 +174,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-black"
             android:text="@string/cast"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -194,8 +201,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/robert_downey_jr"
-                android:textColor="#D8D8D8"
+                android:textColor="@color/alto"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -220,8 +228,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/chris_evans"
-                android:textColor="#D8D8D8"
+                android:textColor="@color/alto"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -246,8 +255,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/mark_ruffalo"
-                android:textColor="#D8D8D8"
+                android:textColor="@color/alto"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -272,8 +282,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/chris_hemsworth"
-                android:textColor="#D8D8D8"
+                android:textColor="@color/alto"
                 android:textSize="12sp" />
 
         </LinearLayout>
