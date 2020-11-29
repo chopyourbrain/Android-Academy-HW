@@ -11,13 +11,26 @@ class FragmentMovieDetails : Fragment() {
 
     private val router: Router by lazy { activity as Router }
 
+    private var _binding: FragmentMovieDetailsBinding? = null
+
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentMovieDetailsBinding.inflate(inflater)
-        binding.backButton.setOnClickListener { router.navigateUp() }
+        _binding = FragmentMovieDetailsBinding.inflate(inflater)
+
+        binding.backButton.setOnClickListener {
+            router.navigateUp()
+        }
+
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
