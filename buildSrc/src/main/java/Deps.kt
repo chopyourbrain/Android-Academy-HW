@@ -30,6 +30,7 @@ object Project {
 object Libraries {
     object Versions {
         const val kotlin = kotlinVersion
+        const val coroutines = "1.4.2"
         const val appcompat = "1.2.0"
         const val constraint = "2.0.0-rc1"
         const val core_ktx = "1.3.1"
@@ -41,4 +42,8 @@ object Libraries {
     const val material =  "com.google.android.material:material:${Versions.material}"
     const val constraintLayout =  "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
     const val coreKtx =  "androidx.core:core-ktx:${Versions.core_ktx}"
+
+    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+
 }

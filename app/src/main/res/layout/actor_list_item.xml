@@ -1,0 +1,25 @@
+<LinearLayout android:id="@+id/actor_1"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/rob_downey" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/robert_downey_jr"
+        android:textColor="@color/alto"
+        android:textSize="12sp" />
+
+</LinearLayout>
