@@ -15,7 +15,6 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
     RecyclerView.Adapter<VH>(), CoroutineScope {
     override val coroutineContext = Dispatchers.Main
 
-    private val initialItems = ArrayList<I>()
     private val items = ArrayList<I>()
 
     var listener: View.OnClickListener? = null
@@ -38,10 +37,11 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
         update(UpdateListOperation.SetItems(newItems))
     }
 
-    private val eventActor = actor<UpdateListOperation<I>>(Dispatchers.IO, capacity = Channel.BUFFERED) {
-        for (it in channel)
-            internalUpdate(it)
-    }
+    private val eventActor =
+        actor<UpdateListOperation<I>>(Dispatchers.IO, capacity = Channel.BUFFERED) {
+            for (it in channel)
+                internalUpdate(it)
+        }
 
     private fun update(operation: UpdateListOperation<I>) = eventActor.offer(operation)
 
@@ -52,7 +52,7 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
                 items.clear()
                 items.addAll(it)
             }
-            diffUtilCb.newItems = initialItems
+            diffUtilCb.newItems = items
             val result = DiffUtil.calculateDiff(diffUtilCb, false)
             launch(Dispatchers.Main) {
                 result.dispatchUpdatesTo(this@BaseAdapter)
@@ -69,8 +69,8 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
 }
 
 abstract class BaseDiffUtilCb<I> : DiffUtil.Callback() {
-    lateinit var oldItems: List<I>
-    lateinit var newItems: List<I>
+    var oldItems = ArrayList<I>()
+    var newItems = ArrayList<I>()
 
     override fun getOldListSize() = oldItems.size
 
