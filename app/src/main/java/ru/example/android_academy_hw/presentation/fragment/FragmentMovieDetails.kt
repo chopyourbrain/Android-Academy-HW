@@ -1,16 +1,17 @@
 package ru.example.android_academy_hw.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.example.android_academy_hw.data.DataGenerator
-import ru.example.android_academy_hw.model.MovieData
-import ru.example.android_academy_hw.Router
-import ru.example.android_academy_hw.presentation.adapter.ActorListAdapter
+import com.bumptech.glide.Glide
 import ru.example.android_academy_hw.databinding.FragmentMovieDetailsBinding
+import ru.example.android_academy_hw.model.Movie
+import ru.example.android_academy_hw.presentation.activity.Router
+import ru.example.android_academy_hw.presentation.adapter.ActorListAdapter
 
 class FragmentMovieDetails : Fragment() {
 
@@ -26,17 +27,32 @@ class FragmentMovieDetails : Fragment() {
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater)
 
-        val adapter = ActorListAdapter()
-        binding.apply {
-            recyclerActors.adapter = adapter
-            recyclerActors.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            backButton.setOnClickListener {
-                router.navigateUp()
+        val movie = arguments?.movie
+        movie?.let {
+            val adapter = ActorListAdapter()
+            binding.apply {
+                Glide.with(requireContext())
+                    .load(movie.backdrop)
+                    .centerCrop()
+                    .into(backdrop)
+                cast.visibility = if (movie.actors.isNullOrEmpty()) View.GONE else View.VISIBLE
+                age.visibility = if (movie.adult) View.VISIBLE else View.INVISIBLE
+                movieTitle.text = movie.title
+                movieGenre.text = movie.genres.joinToString(", ") { it.name }
+                storyLine2.text = movie.overview
+                ratingBar.rating = movie.ratings / 2
+                recyclerActors.adapter = adapter
+                recyclerActors.layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                backButton.setOnClickListener {
+                    router.navigateUp()
+                }
+
             }
-
+            lifecycleScope.launchWhenCreated {
+                adapter.setItems(it.actors)
+            }
         }
-        adapter.setItems(DataGenerator.generateActorList())
-
         return binding.root
     }
 
@@ -48,12 +64,13 @@ class FragmentMovieDetails : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance() = FragmentMovieDetails().apply {
+        fun newInstance(item: Movie) = FragmentMovieDetails().apply {
             arguments = Bundle().apply {
+                movie = item
             }
         }
 
-        var Bundle.movie: MovieData?
+        var Bundle.movie: Movie?
             get() = getParcelable("movie")
             set(value) = putParcelable("movie", value)
     }

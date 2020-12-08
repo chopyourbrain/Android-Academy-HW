@@ -1,19 +1,25 @@
 package ru.example.android_academy_hw.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import ru.example.android_academy_hw.data.DataGenerator
-import ru.example.android_academy_hw.presentation.adapter.MovieListAdapter
-import ru.example.android_academy_hw.Router
+import kotlinx.coroutines.flow.collect
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.example.android_academy_hw.databinding.FragmentMovieListBinding
+import ru.example.android_academy_hw.model.Movie
+import ru.example.android_academy_hw.presentation.activity.Router
+import ru.example.android_academy_hw.presentation.adapter.MovieListAdapter
+import ru.example.android_academy_hw.presentation.adapter.base.ClickElementListener
 
 class FragmentMovieList : Fragment() {
 
     private val router: Router by lazy { activity as Router }
+
+    private val vm: MovieDetailsViewModel by viewModel()
 
     private var _binding: FragmentMovieListBinding? = null
 
@@ -32,9 +38,14 @@ class FragmentMovieList : Fragment() {
         }
         movieAdapter.apply {
             listener =
-                View.OnClickListener { router.navigateTo(FragmentMovieDetails.newInstance()) }
-            setItems(DataGenerator.generateMovieList())
+                object : ClickElementListener<Movie> {
+                    override fun onClick(item: Movie) {
+                        router.navigateTo(FragmentMovieDetails.newInstance(item))
+                    }
+                }
         }
+        lifecycleScope.launchWhenCreated { vm.movies.collect { movieAdapter.setItems(it) } }
+
         return binding.root
     }
 

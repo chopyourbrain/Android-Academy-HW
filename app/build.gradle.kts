@@ -1,5 +1,6 @@
 plugins {
     id(BuildPlugins.androidApplication)
+    id(BuildPlugins.kotlinSerialization)
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -46,6 +47,14 @@ dependencies {
     implementation(Libraries.appcompat)
     implementation(Libraries.material)
     implementation(Libraries.constraintLayout)
+    implementation(Libraries.kotlinSerializationJson)
+    implementation(Libraries.koinAndroid)
+    implementation(Libraries.koinVm)
+    implementation(Libraries.lifecycleRuntime)
+    implementation(Libraries.lifecycleVm)
+    implementation(Libraries.glide)
+    annotationProcessor(Libraries.glideCompiler)
+
     testImplementation ("junit:junit:4.13.1")
     androidTestImplementation ("androidx.test.ext:junit:1.1.2")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.3.0")
