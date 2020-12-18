@@ -8,7 +8,6 @@ import ru.example.android_academy_hw.model.Actor
 import ru.example.android_academy_hw.presentation.adapter.base.BaseAdapter
 import ru.example.android_academy_hw.presentation.adapter.base.BaseDiffUtilCb
 import ru.example.android_academy_hw.presentation.adapter.base.BaseViewHolder
-import ru.example.android_academy_hw.presentation.adapter.base.ClickElementListener
 
 class ActorListAdapter :
     BaseAdapter<Actor, ActorListAdapter.ActorDiffUtilCb, ActorListAdapter.ActorViewHolder>() {
@@ -26,7 +25,7 @@ class ActorListAdapter :
     inner class ActorViewHolder(private val binding: ActorListItemBinding) :
         BaseViewHolder<Actor>(binding.root) {
 
-        override fun bind(item: Actor, listener: ClickElementListener<Actor>?) {
+        override fun bind(item: Actor) {
 
             binding.apply {
                 Glide.with(itemView)

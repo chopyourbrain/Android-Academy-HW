@@ -17,14 +17,12 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
 
     private val items = ArrayList<I>()
 
-    var listener: ClickElementListener<I>? = null
-
     abstract val diffUtilCb: DU
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(getItemAt(position), listener)
+        holder.bind(getItemAt(position))
     }
 
     override fun onViewRecycled(holder: VH) {
@@ -92,7 +90,7 @@ abstract class BaseDiffUtilCb<I> : DiffUtil.Callback() {
 abstract class BaseViewHolder<I>(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
-    abstract fun bind(item: I, listener: ClickElementListener<I>?)
+    abstract fun bind(item: I)
 
     fun unbind() {}
 }

@@ -11,7 +11,7 @@ import ru.example.android_academy_hw.presentation.adapter.base.BaseDiffUtilCb
 import ru.example.android_academy_hw.presentation.adapter.base.BaseViewHolder
 import ru.example.android_academy_hw.presentation.adapter.base.ClickElementListener
 
-class MovieListAdapter :
+class MovieListAdapter(private val listener: ClickElementListener<Movie>?) :
     BaseAdapter<Movie, MovieListAdapter.MovieDiffUtilCb, MovieListAdapter.MoviesViewHolder>() {
 
     override val diffUtilCb = MovieDiffUtilCb()
@@ -27,7 +27,7 @@ class MovieListAdapter :
     inner class MoviesViewHolder(private val binding: MovieListItemBinding) :
         BaseViewHolder<Movie>(binding.root) {
 
-        override fun bind(item: Movie, listener: ClickElementListener<Movie>?) {
+        override fun bind(item: Movie) {
 
             binding.apply {
                 Glide.with(itemView)

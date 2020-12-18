@@ -31,18 +31,14 @@ class FragmentMovieList : Fragment() {
     ): View {
         _binding = FragmentMovieListBinding.inflate(inflater)
 
-        val movieAdapter = MovieListAdapter()
+        val movieAdapter = MovieListAdapter(listener = object : ClickElementListener<Movie> {
+            override fun onClick(item: Movie) {
+                router.navigateTo(FragmentMovieDetails.newInstance(item))
+            }
+        })
         binding.movieListRv.apply {
             adapter = movieAdapter
             layoutManager = GridLayoutManager(context, 2)
-        }
-        movieAdapter.apply {
-            listener =
-                object : ClickElementListener<Movie> {
-                    override fun onClick(item: Movie) {
-                        router.navigateTo(FragmentMovieDetails.newInstance(item))
-                    }
-                }
         }
         lifecycleScope.launchWhenCreated { vm.movies.collect { movieAdapter.setItems(it) } }
 
