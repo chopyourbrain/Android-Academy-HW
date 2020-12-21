@@ -17,14 +17,12 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
 
     private val items = ArrayList<I>()
 
-    var listener: View.OnClickListener? = null
-
     abstract val diffUtilCb: DU
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(getItemAt(position), listener)
+        holder.bind(getItemAt(position))
     }
 
     override fun onViewRecycled(holder: VH) {
@@ -38,25 +36,25 @@ abstract class BaseAdapter<I, DU : BaseDiffUtilCb<I>, VH : BaseViewHolder<I>> :
     }
 
     private val eventActor =
-        actor<UpdateListOperation<I>>(Dispatchers.IO, capacity = Channel.BUFFERED) {
+        actor<UpdateListOperation<I>>(Dispatchers.IO, capacity = Channel.CONFLATED) {
             for (it in channel)
                 internalUpdate(it)
         }
 
     private fun update(operation: UpdateListOperation<I>) = eventActor.offer(operation)
 
-    private fun internalUpdate(operation: UpdateListOperation<I>) {
+    private suspend fun internalUpdate(operation: UpdateListOperation<I>) {
         diffUtilCb.oldItems = ArrayList(items)
         if (operation is UpdateListOperation.SetItems) {
-            operation.newItems?.let {
-                items.clear()
-                items.addAll(it)
-            }
-            diffUtilCb.newItems = items
+            diffUtilCb.newItems = ArrayList(operation.newItems ?: arrayListOf())
             val result = DiffUtil.calculateDiff(diffUtilCb, false)
             launch(Dispatchers.Main) {
+                operation.newItems?.let {
+                    items.clear()
+                    items.addAll(it)
+                }
                 result.dispatchUpdatesTo(this@BaseAdapter)
-            }
+            }.join()
         }
     }
 
@@ -92,7 +90,11 @@ abstract class BaseDiffUtilCb<I> : DiffUtil.Callback() {
 abstract class BaseViewHolder<I>(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
-    abstract fun bind(item: I, listener: View.OnClickListener?)
+    abstract fun bind(item: I)
 
     fun unbind() {}
+}
+
+interface ClickElementListener<I> {
+    fun onClick(item: I)
 }

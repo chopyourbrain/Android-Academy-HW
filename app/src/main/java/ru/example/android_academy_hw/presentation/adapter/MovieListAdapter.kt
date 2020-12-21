@@ -3,14 +3,16 @@ package ru.example.android_academy_hw.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import ru.example.android_academy_hw.databinding.MovieListItemBinding
-import ru.example.android_academy_hw.model.MovieData
+import ru.example.android_academy_hw.model.Movie
 import ru.example.android_academy_hw.presentation.adapter.base.BaseAdapter
 import ru.example.android_academy_hw.presentation.adapter.base.BaseDiffUtilCb
 import ru.example.android_academy_hw.presentation.adapter.base.BaseViewHolder
+import ru.example.android_academy_hw.presentation.adapter.base.ClickElementListener
 
-class MovieListAdapter :
-    BaseAdapter<MovieData, MovieListAdapter.MovieDiffUtilCb, MovieListAdapter.MoviesViewHolder>() {
+class MovieListAdapter(private val listener: ClickElementListener<Movie>?) :
+    BaseAdapter<Movie, MovieListAdapter.MovieDiffUtilCb, MovieListAdapter.MoviesViewHolder>() {
 
     override val diffUtilCb = MovieDiffUtilCb()
 
@@ -23,31 +25,36 @@ class MovieListAdapter :
     )
 
     inner class MoviesViewHolder(private val binding: MovieListItemBinding) :
-        BaseViewHolder<MovieData>(binding.root) {
+        BaseViewHolder<Movie>(binding.root) {
 
-        override fun bind(item: MovieData, listener: View.OnClickListener?) {
+        override fun bind(item: Movie) {
 
             binding.apply {
-                moviePoster.setImageResource(item.imageRes)
-                age.text = item.age.toString() + "+"
-                movieGenre.text = item.genre
+                Glide.with(itemView)
+                    .load(item.poster)
+                    .centerCrop()
+                    .into(moviePoster)
+
+                adult.visibility = if (item.adult) View.VISIBLE else View.GONE
+                movieGenre.text = item.genres.joinToString(", ") { it.name }
                 filmTitle.text = item.title
-                runningTime.text = item.runningTime
-                reviewsCount.text = item.reviewCount.toString() + " REVIEWS"
+                runningTime.text = item.runtime.toString() + " min"
+                ratingBar.rating = item.ratings / 2
+//                reviewsCount.text = item.reviewCount.toString() + " REVIEWS"
                 movieCard.setOnClickListener {
-                    listener?.onClick(itemView)
+                    listener?.onClick(item)
                 }
             }
 
         }
     }
 
-    inner class MovieDiffUtilCb : BaseDiffUtilCb<MovieData>() {
-        override fun areItemsTheSame(old: MovieData, new: MovieData): Boolean {
+    inner class MovieDiffUtilCb : BaseDiffUtilCb<Movie>() {
+        override fun areItemsTheSame(old: Movie, new: Movie): Boolean {
             return old.title == new.title
         }
 
-        override fun areContentsTheSame(old: MovieData, new: MovieData): Boolean {
+        override fun areContentsTheSame(old: Movie, new: Movie): Boolean {
             return old == new
         }
     }

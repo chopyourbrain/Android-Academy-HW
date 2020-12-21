@@ -20,6 +20,7 @@
             app:layout_constraintGuide_begin="16dp" />
 
         <ImageView
+            android:id="@+id/backdrop"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="centerCrop"
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="154dp"
             android:fontFamily="sans-serif-black"
-            android:text="@string/age"
+            android:text="@string/adult"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -61,14 +62,15 @@
 
         <TextView
             android:id="@+id/movie_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-black"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@string/avengers_title"
             android:textColor="@color/gallery"
             android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/age" />
 
         <TextView
@@ -93,44 +95,13 @@
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/movie_genre">
 
-            <ImageView
-                android:id="@+id/star_1"
+            <ru.example.android_academy_hw.presentation.view.RatingBarSvg
+                android:id="@+id/rating_bar"
+                style="@style/CustomRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_gray" />
+                android:numStars="5" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -181,16 +152,16 @@
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/storyLine2" />
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/recycler_actors"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:clipToPadding="false"
-           android:paddingStart="8dp"
-           android:paddingEnd="8dp"
-           android:paddingBottom="16dp"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/cast"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_actors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cast" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

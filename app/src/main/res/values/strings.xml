@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Android-Academy-HW</string>
     <string name="back">Back</string>
-    <string name="age">13+</string>
+    <string name="adult">18+</string>
     <string name="avengers_title">Avengers: End Game</string>
     <string name="avengers_genre">Action, Adventure, Fantasy</string>
     <string name="reviews">125 Reviews</string>

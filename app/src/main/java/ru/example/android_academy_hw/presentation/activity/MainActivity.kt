@@ -1,8 +1,9 @@
-package ru.example.android_academy_hw
+package ru.example.android_academy_hw.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import ru.example.android_academy_hw.R
 import ru.example.android_academy_hw.presentation.fragment.FragmentMovieList
 
 class MainActivity : AppCompatActivity(), Router {

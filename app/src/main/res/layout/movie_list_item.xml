@@ -21,10 +21,9 @@
             android:id="@+id/movie_poster"
             android:layout_width="match_parent"
             android:layout_height="248dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/avengers_background"
             app:layout_constraintBottom_toTopOf="@id/film_title"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/avengers_background" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -35,6 +34,7 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/adult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
@@ -45,14 +45,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@string/adult"
                 android:textColor="@color/white"
-                android:textSize="12sp"
-                tools:text="@string/age" />
+                android:textSize="12sp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -91,44 +90,13 @@
             app:layout_constraintBottom_toTopOf="@id/film_title"
             app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/star_1"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
+            <ru.example.android_academy_hw.presentation.view.RatingBarSvg
+                android:id="@+id/rating_bar"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_2"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_3"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_4"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_red" />
-
-            <ImageView
-                android:id="@+id/star_5"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="3dp"
-                android:src="@drawable/ic_star_icon_gray" />
+                android:numStars="5" />
 
             <TextView
                 android:id="@+id/reviews_count"
