@@ -52,6 +52,7 @@ dependencies {
     implementation(Libraries.koinVm)
     implementation(Libraries.lifecycleRuntime)
     implementation(Libraries.lifecycleVm)
+    implementation(Libraries.lifecycleLivedata)
     implementation(Libraries.glide)
     annotationProcessor(Libraries.glideCompiler)
 

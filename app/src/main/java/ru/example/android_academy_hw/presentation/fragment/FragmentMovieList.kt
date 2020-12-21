@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Job
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.example.android_academy_hw.databinding.FragmentMovieListBinding
 import ru.example.android_academy_hw.model.Movie
@@ -22,6 +22,8 @@ class FragmentMovieList : Fragment() {
     private val vm: MovieDetailsViewModel by viewModel()
 
     private var _binding: FragmentMovieListBinding? = null
+
+    private var uiStateJob: Job? = null
 
     private val binding get() = _binding!!
 
@@ -40,7 +42,10 @@ class FragmentMovieList : Fragment() {
             adapter = movieAdapter
             layoutManager = GridLayoutManager(context, 2)
         }
-        lifecycleScope.launchWhenCreated { vm.movies.collect { movieAdapter.setItems(it) } }
+
+        vm.movies.asLiveData().observe(viewLifecycleOwner) {
+            movieAdapter.setItems(it)
+        }
 
         return binding.root
     }
