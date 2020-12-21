@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.coroutines.Job
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.get
 import ru.example.android_academy_hw.databinding.FragmentMovieListBinding
 import ru.example.android_academy_hw.model.Movie
 import ru.example.android_academy_hw.presentation.activity.Router
@@ -19,11 +18,9 @@ class FragmentMovieList : Fragment() {
 
     private val router: Router by lazy { activity as Router }
 
-    private val vm: MovieDetailsViewModel by viewModel()
+    private val vm = MovieDetailsViewModel(get())
 
     private var _binding: FragmentMovieListBinding? = null
-
-    private var uiStateJob: Job? = null
 
     private val binding get() = _binding!!
 
