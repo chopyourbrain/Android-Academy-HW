@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
+import org.koin.android.ext.android.inject
+import ru.example.android_academy_hw.UiState
+import ru.example.android_academy_hw.data.MovieRepository
 import ru.example.android_academy_hw.databinding.FragmentMovieListBinding
 import ru.example.android_academy_hw.model.Movie
 import ru.example.android_academy_hw.presentation.activity.Router
@@ -19,7 +22,9 @@ class FragmentMovieList : Fragment() {
 
     private val router: Router by lazy { activity as Router }
 
-    private val vm = ViewModelProviders.of(this).get(MovieDetailsViewModel::class.java)
+    private val repo: MovieRepository by inject()
+
+    private val vm by lazy { ViewModelProviders.of(requireActivity(), MovieViewModelFactory(repo)).get(MovieDetailsViewModel::class.java) }
 
     private var _binding: FragmentMovieListBinding? = null
 
@@ -42,7 +47,16 @@ class FragmentMovieList : Fragment() {
         }
 
         vm.movies.asLiveData().observe(viewLifecycleOwner) {
-            movieAdapter.setItems(it)
+            when (it) {
+                is UiState.Success -> movieAdapter.setItems(it.data)
+                is UiState.Error -> {
+                }
+                is UiState.Empty -> {
+                }
+                is UiState.Loading -> {
+                }
+            }
+
         }
 
         return binding.root
